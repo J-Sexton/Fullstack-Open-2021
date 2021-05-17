@@ -1,13 +1,13 @@
 import { useState } from "react"
 import React from 'react'
 
-const GiveFeedback = ({text, handleFeedback}) => {
+const Button = ({text, handleFeedback}) => {
   return (
   <button onClick={handleFeedback}>{text}</button>
   )
 }
 
-const SingleStatistic = ({text, stat, total}) => {
+const Statistic = ({text,value, total}) => {
   if(total === 0) {
     return (
       <div>
@@ -16,9 +16,11 @@ const SingleStatistic = ({text, stat, total}) => {
     )
   } else {
     return (
-      <div>
-        <p>{text} {stat}</p>
-      </div>
+        <tr>
+          <td>{text}</td>
+          <td></td> 
+          <td>{value}</td>
+        </tr>
     )
   }
 
@@ -34,12 +36,16 @@ const Statistics  = ({goodFeedbackCount, neutralFeedbackCount, badFeedbackCount,
   }else {
     return(
       <div>
-        <SingleStatistic text="good" stat={goodFeedbackCount}></SingleStatistic>
-        <SingleStatistic text="neutral" stat={neutralFeedbackCount}></SingleStatistic>
-        <SingleStatistic text="bad" stat={badFeedbackCount}></SingleStatistic>
-        <SingleStatistic text="all" stat={total}></SingleStatistic>
-        <SingleStatistic text="average" stat={feedbackAverage}></SingleStatistic>
-        <SingleStatistic text="positive" stat={positiveFeedbackPercentage}></SingleStatistic>
+      <table>
+        <tbody>
+        <Statistic text="good" value={goodFeedbackCount}></Statistic>
+        <Statistic text="neutral" value={neutralFeedbackCount}></Statistic>
+        <Statistic text="bad" value={badFeedbackCount}></Statistic>
+        <Statistic text="all" value={total}></Statistic>
+        <Statistic text="average" value={feedbackAverage}></Statistic>
+        <Statistic text="positive" value={positiveFeedbackPercentage}></Statistic>
+        </tbody>
+      </table>
       </div>
     )
   }
@@ -81,9 +87,9 @@ const App = () => {
     return (
       <div>
         <p><strong>give feedback</strong></p>
-        <GiveFeedback text="good" handleFeedback={() => handleGoodClick()}></GiveFeedback>
-        <GiveFeedback text="neutral" handleFeedback={() => handleNeutralFeedback()}></GiveFeedback>
-        <GiveFeedback text="bad" handleFeedback={() => handleBadFeedback()}></GiveFeedback>
+        <Button text="good" handleFeedback={() => handleGoodClick()}></Button>
+        <Button text="neutral" handleFeedback={() => handleNeutralFeedback()}></Button>
+        <Button text="bad" handleFeedback={() => handleBadFeedback()}></Button>
         <p><strong>statistics</strong></p>
         <Statistics goodFeedbackCount={good}
         badFeedbackCount = {bad}

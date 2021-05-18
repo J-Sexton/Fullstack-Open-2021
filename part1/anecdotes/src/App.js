@@ -19,6 +19,16 @@ const App = () => {
     setSelected(Math.floor(Math.random()*anecdotes.length))
   }
 
+  const getAnecdoteWithHighestVotes = () => {
+    let indexOfLargetsVotes = 0
+    votes.forEach((element, index) => {
+      if (element > votes[indexOfLargetsVotes]){
+        indexOfLargetsVotes = index
+      }
+    })
+    return indexOfLargetsVotes
+  }
+
   const handleVote = () => {
     const copy = [...votes]
     copy[selected]+=1
@@ -27,10 +37,18 @@ const App = () => {
 
   return (
     <div>
+      <p><strong>Anecdote of the day</strong></p>
       <p>{anecdotes[selected]}</p>
-      <p>{votes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
       <button onClick={(handleNextAnecdote)}>next anecdotes</button>
       <button onClick={(handleVote)}>vote</button>
+
+      <p><strong>Anecdote with the most votes</strong></p>
+      <p>{anecdotes[getAnecdoteWithHighestVotes()]}</p>
+      <p>has {votes[getAnecdoteWithHighestVotes()]}</p>
+
+
+
     </div>
   )
 }

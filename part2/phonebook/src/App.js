@@ -53,7 +53,7 @@ const App = () => {
 
   const namesToShow = showAll
   ? persons
-  : persons.filter(person => person.name.toLowerCase().match(newName))
+  : persons.filter(person => person.name.toLowerCase().cont(newName))
 
   return (
     <div>

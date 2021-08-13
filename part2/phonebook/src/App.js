@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-
-const Number = ({person}) => {
-  console.log(person.name)
-  return (
-    <div>{person.name} {person.number}</div>
-  )
-}
+import Persons from './components/Persons'
+import PersonForm from './components/PersonForm'
+import Filter from './components/Filter'
+// const Number = ({person}) => {
+//   console.log(person.name)
+//   return (
+//     <div>{person.name} {person.number}</div>
+//   )
+// }
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -17,7 +19,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
   const [ nameFilter, setNameFilter] = useState('')
-  const [showAll, setShowAll] = useState(true)
+  const [ showAll, setShowAll] = useState(true)
 
 
   const addName = (event) => {
@@ -52,33 +54,17 @@ const App = () => {
   }
 
   const namesToShow = showAll
-  ? persons
-  : persons.filter(person => person.name.toLowerCase().cont(newName))
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().includes(nameFilter))
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>filer with a <input value={nameFilter} onChange={handleFilterChange}/></div>
-      </form>
+        <Filter nameFilter={nameFilter} handleFilterChange={handleFilterChange}></Filter>
       <h2>add to phonebook</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleNameInputChange}/>
-        </div>
-        <div>number: <input value={newNumber} onChange={handleNumberInputChange}/></div>
-        {/* <div>debug: {newName}</div> */}
-        <div>
-          <button type="submit" onClick={addName}>add</button>
-        </div>
-      </form>
+        <PersonForm newName={newName} handleNameInputChange={handleNameInputChange} newNumber={newNumber} handleNumberInputChange={handleNumberInputChange} addName={addName}></PersonForm>
       <h2>Numbers</h2>
-      <ul>
-        {namesToShow.map(person => {
-          console.log(person)
-          return <Number key={person.name} person={person}/>
-        })}
-      </ul>
+        <Persons namesToShow={namesToShow}></Persons>
     </div>
   )
 }

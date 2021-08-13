@@ -8,7 +8,7 @@ const App = ({notes}) => {
       <h1>Notes</h1>
       <ul>
         {notes.map(note => 
-          <Notes kye={notes.id} note={note}></Notes>
+          <Notes key={notes.id} note={note}></Notes>
           )}
       </ul>
     </div>
